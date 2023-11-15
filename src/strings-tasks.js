@@ -133,7 +133,7 @@ function removeTrailingWhitespaces(value) {
  */
 function repeatString(str, times) {
   if (times <= 0) return '';
-  return str.padStart(str.length * times, str);
+  return str.repeat(times);
 }
 
 /**
@@ -233,7 +233,9 @@ function endsWith(str, substr) {
  *   formatTime(0, 0) => "00:00"
  */
 function formatTime(minutes, seconds) {
-  return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  return `${minutes.toString().padStart(2, '0')}:${seconds
+    .toString()
+    .padStart(2, '0')}`;
 }
 
 /**
@@ -314,8 +316,10 @@ function countVowels(str) {
  *   isPalindrome('No lemon, no melon') => true
  */
 function isPalindrome(str) {
-  const regexp = new RegExp(/[a-zA-Z0-9]/);
-  const filtered = str.split('').filter((item) => regexp.test(item))
+  const regexp = /[a-zA-Z0-9]/;
+  const filtered = str
+    .split('')
+    .filter((item) => regexp.test(item))
     .map((item) => item.toLowerCase());
   return filtered.join('') === filtered.reverse().join('');
 }
@@ -349,7 +353,10 @@ function findLongestWord(sentence) {
  *   reverseWords('The Quick Brown Fox') => 'ehT kciuQ nworB xoF'
  */
 function reverseWords(str) {
-  return str.split(' ').map((item) => reverseString(item)).join(' ');
+  return str
+    .split(' ')
+    .map((item) => reverseString(item))
+    .join(' ');
 }
 
 /**
@@ -364,12 +371,15 @@ function reverseWords(str) {
  *   invertCase('12345') => '12345'
  */
 function invertCase(str) {
-  return str.split('').map((item) => {
-    if (item === item.toUpperCase()) {
-      return item.toLowerCase();
-    }
-    return item.toUpperCase();
-  }).join('');
+  return str
+    .split('')
+    .map((item) => {
+      if (item === item.toUpperCase()) {
+        return item.toLowerCase();
+      }
+      return item.toUpperCase();
+    })
+    .join('');
 }
 
 /**
@@ -417,7 +427,11 @@ function extractNameFromTemplate(value) {
 function unbracketTag(str) {
   const first = str.indexOf('<');
   const last = str.lastIndexOf('>');
-  return str.substring(0, first) + str.substring(first + 1, last) + str.substring(last + 1);
+  return (
+    str.substring(0, first) +
+    str.substring(first + 1, last) +
+    str.substring(last + 1)
+  );
 }
 
 /**
@@ -515,7 +529,8 @@ function getCardId(value) {
   const rowStr = value.substring(value.length - 1);
   const colStr = value.substring(0, value.length - 1);
   const row = ROWS[rowStr];
-  const column = (colStr in COLS === true) ? COLS[colStr] : parseInt(colStr, 10) - 1;
+  const column =
+    colStr in COLS === true ? COLS[colStr] : parseInt(colStr, 10) - 1;
   return row * 13 + column;
 }
 
